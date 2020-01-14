@@ -29,9 +29,11 @@ if (cardsInPlay[0]===cardsInPlay[1]) {
 	}
 }
 
-function flipcard (cardId) {
+function flipcard () {
+	let cardId = this.getAttribute('data-id');
 	cardsInPlay.push(cards[cardId].rank);
 	console.log("user flipped " + cards[cardId].rank)
+	this.setAttribute('src', cards[cardId].cardImage)
 	if (cardsInPlay.length === 2) {
 		console.log('user has picked two cards');
 		checkForMatch()
@@ -41,9 +43,18 @@ function flipcard (cardId) {
 	
 } 
 
-flipcard(0);
-flipcard(2);
+function createBoard() {
+	for (let i = 0; i < cards.length; i++) {
+		let cardElement = document.createElement('img');
+		cardElement.setAttribute('src', "images/back.png");
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener("click", flipcard)
+		document.getElementById("game-board").appendChild(cardElement);
+	}
 
+}
+
+createBoard();
 
 
 
